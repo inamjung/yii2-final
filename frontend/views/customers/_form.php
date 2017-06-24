@@ -93,13 +93,13 @@ use yii\helpers\ArrayHelper;
         </div>-->
       <div class="col-xs-4 col-sm-4 col-md-4">
             <?= $form->field($model, 'department_id')->widget(Select2::classname(), [
-    'data' => \yii\helpers\ArrayHelper::map(frontend\models\Departments::find()->all(), 'id', 'name'),                
-    'language' => 'th',
-    'options' => ['placeholder' => 'เลือกแผนก ...'],
-    'pluginOptions' => [
-        'allowClear' => true
-    ],
-]);?>
+                'data' => \yii\helpers\ArrayHelper::map(frontend\models\Departments::find()->all(), 'id', 'name'),                
+                'language' => 'th',
+                'options' => ['placeholder' => 'เลือกแผนก ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]);?>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
@@ -111,6 +111,7 @@ use yii\helpers\ArrayHelper;
                 ->checkboxList(\frontend\models\Customers::itemAlias('interest')) ?>
         </div>        
    </div>
+ 
     <hr>
    <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12  ">

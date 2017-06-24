@@ -26,7 +26,7 @@ class Customers extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public $pic_img;
+    public $pic_img;  // ตัวแปร uploadรูป
     
     public static function tableName()
     {
@@ -44,7 +44,7 @@ class Customers extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 150],
             [['addr', 'email'], 'string', 'max' => 100],
             [['p', 'tel', 'pic'], 'string', 'max' => 255],
-            [['pic_img'],'file','skipOnEmpty'=>'true','on'=>'update','extensions'=>'jpg,png']
+            [['pic_img'],'file','skipOnEmpty'=>'true','on'=>'update','extensions'=>'jpg,png'] // type ของตัวแปรแนบรูป
         ];
     }
 
@@ -70,6 +70,7 @@ class Customers extends \yii\db\ActiveRecord
         ];
     }
     
+    // เริ่มโค้ดการเก็บค่าแบบ multiple checkbox
     public function getArray($value) {
         return explode(',', $value);
     }
@@ -106,4 +107,23 @@ class Customers extends \yii\db\ActiveRecord
             return isset($_items[$type]) ? $_items[$type] : false;
         }
     }
+    
+     // จบโค้ดการเก็บค่าแบบ multiple checkbox
+
+    // เริ่ม relation
+     public function getChwt(){
+        return $this->hasOne(\common\models\Chw::className(), ['id'=>'c']);
+    }
+    public function getAmpur(){
+        return $this->hasOne(\common\models\Amp::className(), ['id'=>'a']);
+    }
+    public function getTmbon(){
+        return $this->hasOne(\common\models\Tmb::className(), ['id'=>'t']);
+    }
+    
+    public function getDepart(){
+        return $this->hasOne(Departments::className(), ['id'=>'department_id']);
+    }
+    
+     // จบ relation
 }
