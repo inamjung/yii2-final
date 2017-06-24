@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?=
             $this->render('_form', [
                 'model' => $model,
+                
+                // ส่งตัวแปรว่างไปให้ฟอร์ม
+                'amp'=>[],
+                'tmb'=>[]
             ])
             ?>
         </div>

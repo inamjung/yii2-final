@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = 'Update';
             <?=
             $this->render('_form', [
                 'model' => $model,
+                
+                // ส่งตัวแปรที่มีค่าไปให้ฟอร์ม
+                'amp'=>$amp,
+                'tmb'=>$tmb
             ])
             ?>
         </div>

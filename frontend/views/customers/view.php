@@ -13,7 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customers-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
+    <div>                
+         <?= Html::img('img/' . $model->pic, ['class' => 'img-responsive', 'width' => '150px;']); ?>
+  </div>
+    <hr>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -28,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'name',
             'addr',
             't',
@@ -39,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'department_id',
             'interest',
             'email:email',
-            'pic',
+            //'pic',
             'createdate',
         ],
     ]) ?>

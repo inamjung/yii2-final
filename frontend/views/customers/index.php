@@ -24,19 +24,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+             [
+                'attribute'=>'pic',
+                'format'=>'html',
+                'value'=>function($model){
+                    return html::img('img/'.$model->pic,['class'=>'thumbnail-responsive',
+                            'style'=>'width: 100px;']);
+                }
+            ],
             'name',
             'addr',
             't',
             'a',
-            // 'c',
-            // 'p',
-            // 'tel',
-            // 'department_id',
-            // 'interest',
-            // 'email:email',
-            // 'pic',
-            // 'createdate',
+             'c',
+             'p',
+             'tel',
+             'department_id',
+             'interest',
+             //'email:email',
+             //'pic',
+             //'createdate',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

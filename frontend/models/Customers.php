@@ -26,6 +26,8 @@ class Customers extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $pic_img;
+    
     public static function tableName()
     {
         return 'customers';
@@ -38,10 +40,11 @@ class Customers extends \yii\db\ActiveRecord
     {
         return [
             [['t', 'a', 'c','department_id'], 'integer'],
-            [['createdate'], 'safe'],
+            [['createdate', 'interest'], 'safe'],
             [['name'], 'string', 'max' => 150],
             [['addr', 'email'], 'string', 'max' => 100],
-            [['p', 'tel', 'interest', 'pic'], 'string', 'max' => 255],
+            [['p', 'tel', 'pic'], 'string', 'max' => 255],
+            [['pic_img'],'file','skipOnEmpty'=>'true','on'=>'update','extensions'=>'jpg,png']
         ];
     }
 
@@ -65,5 +68,42 @@ class Customers extends \yii\db\ActiveRecord
             'pic' => 'Pic',
             'createdate' => 'Createdate',
         ];
+    }
+    
+    public function getArray($value) {
+        return explode(',', $value);
+    }
+
+    public function setToArray($value) {
+        return is_array($value) ? implode(',', $value) : NULL;
+    }
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if (!empty($this->id)) {
+                $this->interest = $this->setToArray($this->interest);
+            }
+            return true;
+        } else {
+            return false;
+        }                
+    }
+    public static function itemAlias($type, $code = NULL) {
+        $_items = array(
+            'interest' => array(
+                'php' => 'Php',
+                'access' => 'Access',
+                'delphi'=>'Delphi',
+                'css'=>'Css',
+                'c#'=>'C#'
+            ),
+             );
+
+
+        if (isset($code)) {
+            return isset($_items[$type][$code]) ? $_items[$type][$code] : false;
+        } else {
+            return isset($_items[$type]) ? $_items[$type] : false;
+        }
     }
 }
