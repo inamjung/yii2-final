@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
+use frontend\models\Products;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\InmainSearch */
@@ -16,19 +17,21 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Inmain', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Inmain', ['inmain/create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'company_id',
-            'bill_no',
-            'inventory',
+            //'id',
             'date',
+            'inventory',
+            'company.name',
+            'bill_no',
+            
+           
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

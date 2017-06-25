@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Inmain */
@@ -13,8 +14,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="inmain-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    
+    
 
-    <p>
+<!--    <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -23,17 +26,44 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p>-->
+    
+    <?= Html::a('พิมพื', ['report', 'id' => $model->id], ['class' => 'btn btn-info','target'=>'_blank']) ?>
+<?php 
+    $dataProvider = new yii\data\ActiveDataProvider([
+        'query'=> frontend\models\Indetail::find()->
+            where(['inventory_id'=>$model->id])->
+            orderBy('id DESC'),
+            'pagination'=>[
+                'pageSize'=>20
+            ]
+    ]);
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'company_id',
-            'bill_no',
-            'inventory',
-            'date',
+?>
+     <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+       
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute'=>'product_id',
+                
+            ],
+            [
+                'attribute'=>'qty',
+                
+            ],
+            [
+                'attribute'=>'price',
+                
+            ],
+            [
+                'attribute'=>'exp',
+                
+            ],
+            
         ],
-    ]) ?>
+    ]); ?>
+   
 
 </div>

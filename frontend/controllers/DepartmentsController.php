@@ -66,7 +66,9 @@ class DepartmentsController extends Controller
         $model = new Departments();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            
+            return $this->redirect(['/line-bot/curl']);
+            //return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
