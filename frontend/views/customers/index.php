@@ -52,7 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //             'c',
 //             'p',
              'tel',
-             'depart.name',
+            [
+                'attribute'=>'department_id',               
+                'value'=>  'depart.name',
+            ],        
+                  
+             //'depart.name',
+             
              'interest',
              //'email:email',
              //'pic',
