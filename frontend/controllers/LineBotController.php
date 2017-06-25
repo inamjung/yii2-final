@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Linebot;
+use frontend\models\LineBot;
 use frontend\models\Departments;
 use yii\helpers\Url;
 
@@ -10,10 +10,10 @@ class LineBotController extends \yii\web\Controller {
 
     public function actionCurl() 
        {
-        $last_thread = \frontend\models\Linebot::findOne(['name' => 'แจ้งเตือน']);
+        $last_thread = LineBot::findOne(['name' => 'แจ้งเตือน']);
         $thread = \frontend\models\Departments::find()->orderBy(['id' => SORT_DESC])->one();
         if (!$last_thread) {
-            $last_thread = new \frontend\models\Linebot();
+            $last_thread = new LineBot();
             $last_thread->name = 'แจ้งเตือน';
             $last_thread->last_id = $thread->id;
             $last_thread->save();

@@ -10,10 +10,27 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2017-06-24 17:11:05
+Date: 2017-06-25 19:16:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for account
+-- ----------------------------
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `client_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `properties` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of account
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for amp
@@ -1031,6 +1048,408 @@ INSERT INTO `amp` VALUES ('997', '9613', 'เจาะไอร้อง', '6', 
 INSERT INTO `amp` VALUES ('998', '9681', 'อ.บางนรา', '6', '76');
 
 -- ----------------------------
+-- Table structure for auth_assignment
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_assignment`;
+CREATE TABLE `auth_assignment` (
+  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`item_name`,`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of auth_assignment
+-- ----------------------------
+INSERT INTO `auth_assignment` VALUES ('viewer', '3', '1498377106');
+INSERT INTO `auth_assignment` VALUES ('manager', '2', '1498377130');
+INSERT INTO `auth_assignment` VALUES ('admin', '1', '1498377155');
+
+-- ----------------------------
+-- Table structure for auth_item
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_item`;
+CREATE TABLE `auth_item` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`) USING BTREE,
+  KEY `idx-auth_item-type` (`type`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of auth_item
+-- ----------------------------
+INSERT INTO `auth_item` VALUES ('/gridview/export/download', '2', null, null, null, '1498376100', '1498376100');
+INSERT INTO `auth_item` VALUES ('/gridview/export/*', '2', null, null, null, '1498376101', '1498376101');
+INSERT INTO `auth_item` VALUES ('/gridview/*', '2', null, null, null, '1498376101', '1498376101');
+INSERT INTO `auth_item` VALUES ('/user/admin/index', '2', null, null, null, '1498376101', '1498376101');
+INSERT INTO `auth_item` VALUES ('/user/admin/create', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/update', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/update-profile', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/info', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/switch', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/assignments', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/confirm', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/delete', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/block', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/resend-password', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/admin/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/profile/index', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/profile/show', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/profile/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/recovery/request', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/recovery/reset', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/recovery/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/registration/register', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/registration/connect', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/registration/confirm', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/registration/resend', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/registration/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/security/auth', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/security/login', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/security/logout', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/security/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/profile', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/account', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/confirm', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/networks', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/disconnect', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/delete', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/settings/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/user/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/assignment/assign', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/assignment/*', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/permission/index', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/permission/create', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/permission/update', '2', null, null, null, '1498376102', '1498376102');
+INSERT INTO `auth_item` VALUES ('/rbac/permission/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/permission/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/role/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/role/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/role/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/role/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/role/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/search', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/rule/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/rbac/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/view', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/assign', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/revoke', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/assignment/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/default/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/default/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/view', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/menu/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/view', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/assign', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/remove', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/permission/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/view', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/delete', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/assign', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/remove', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/role/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/assign', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/remove', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/refresh', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/route/*', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/rule/index', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/rule/view', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/rule/create', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/rule/update', '2', null, null, null, '1498376103', '1498376103');
+INSERT INTO `auth_item` VALUES ('/admin/rule/delete', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/rule/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/view', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/delete', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/login', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/logout', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/signup', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/request-password-reset', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/reset-password', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/change-password', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/activate', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/user/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/admin/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/db-explain', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/view', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/toolbar', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/download-mail', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/default/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/debug/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/view', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/preview', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/diff', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/action', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/default/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/gii/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/view', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/create', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/update', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/delete', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/get-amp', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/get-tmb', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/customers/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/view', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/create', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/update', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/delete', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/departments/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/error', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/captcha', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/index', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/login', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/logout', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/contact', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/about', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/signup', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/request-password-reset', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/reset-password', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/test', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/site/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('/*', '2', null, null, null, '1498376104', '1498376104');
+INSERT INTO `auth_item` VALUES ('เพิ่มลบแก้ไข', '2', null, null, null, '1498376388', '1498376388');
+INSERT INTO `auth_item` VALUES ('ดูข้อมูล', '2', null, null, null, '1498376666', '1498376666');
+INSERT INTO `auth_item` VALUES ('ผู้ดูแลระบบ(นักไอที)', '2', null, null, null, '1498376808', '1498376808');
+INSERT INTO `auth_item` VALUES ('manager', '1', null, null, null, '1498376894', '1498376894');
+INSERT INTO `auth_item` VALUES ('viewer', '1', null, null, null, '1498376968', '1498376968');
+INSERT INTO `auth_item` VALUES ('admin', '1', null, null, null, '1498377018', '1498377018');
+
+-- ----------------------------
+-- Table structure for auth_item_child
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_item_child`;
+CREATE TABLE `auth_item_child` (
+  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of auth_item_child
+-- ----------------------------
+INSERT INTO `auth_item_child` VALUES ('admin', 'ผู้ดูแลระบบ(นักไอที)');
+INSERT INTO `auth_item_child` VALUES ('manager', 'เพิ่มลบแก้ไข');
+INSERT INTO `auth_item_child` VALUES ('viewer', 'ดูข้อมูล');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/customers/index');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/customers/view');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/departments/index');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/departments/view');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/site/logout');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/user/security/login');
+INSERT INTO `auth_item_child` VALUES ('ดูข้อมูล', '/user/security/logout');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/assignment/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/assignment/assign');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/assignment/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/assignment/revoke');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/assignment/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/default/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/default/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/menu/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/assign');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/remove');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/permission/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/assign');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/remove');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/role/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/assign');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/refresh');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/route/remove');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/rule/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/activate');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/change-password');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/login');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/logout');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/request-password-reset');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/reset-password');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/signup');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/admin/user/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/get-amp');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/get-tmb');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/customers/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/db-explain');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/download-mail');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/toolbar');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/debug/default/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/departments/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/action');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/diff');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/preview');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gii/default/view');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gridview/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gridview/export/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/gridview/export/download');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/assignment/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/assignment/assign');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/permission/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/permission/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/permission/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/permission/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/permission/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/role/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/role/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/role/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/role/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/role/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/search');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/rbac/rule/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/about');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/captcha');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/contact');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/error');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/login');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/logout');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/request-password-reset');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/reset-password');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/signup');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/site/test');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/assignments');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/block');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/confirm');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/create');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/info');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/resend-password');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/switch');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/update');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/admin/update-profile');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/profile/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/profile/index');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/profile/show');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/recovery/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/recovery/request');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/recovery/reset');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/registration/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/registration/confirm');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/registration/connect');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/registration/register');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/registration/resend');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/security/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/security/auth');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/security/login');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/security/logout');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/*');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/account');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/confirm');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/delete');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/disconnect');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/networks');
+INSERT INTO `auth_item_child` VALUES ('ผู้ดูแลระบบ(นักไอที)', '/user/settings/profile');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/customers/*');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/*');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/create');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/delete');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/index');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/update');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/departments/view');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/gridview/*');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/gridview/export/*');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/gridview/export/download');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/user/security/login');
+INSERT INTO `auth_item_child` VALUES ('เพิ่มลบแก้ไข', '/user/security/logout');
+
+-- ----------------------------
+-- Table structure for auth_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `auth_rule`;
+CREATE TABLE `auth_rule` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `data` text COLLATE utf8_unicode_ci,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of auth_rule
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for chw
 -- ----------------------------
 DROP TABLE IF EXISTS `chw`;
@@ -1123,6 +1542,31 @@ INSERT INTO `chw` VALUES ('75', '95', 'ยะลา', '6');
 INSERT INTO `chw` VALUES ('76', '96', 'นราธิวาส', '6');
 
 -- ----------------------------
+-- Table structure for companys
+-- ----------------------------
+DROP TABLE IF EXISTS `companys`;
+CREATE TABLE `companys` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT 'บริษัท',
+  `tel` varchar(45) DEFAULT NULL COMMENT 'Tel',
+  `addr` varchar(255) DEFAULT NULL COMMENT 'ที่อยู่',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='บริษัท';
+
+-- ----------------------------
+-- Records of companys
+-- ----------------------------
+INSERT INTO `companys` VALUES ('1', 'บ.เค.เอส.ที เช็นทรัลชัพพลาย จก. USA.', null, null);
+INSERT INTO `companys` VALUES ('2', 'ไตรรงค์', null, null);
+INSERT INTO `companys` VALUES ('3', 'GM เมดไลน์ จก.', null, null);
+INSERT INTO `companys` VALUES ('4', 'กรุงเทพครุภัณฑ์เวชภัณฑ์', null, null);
+INSERT INTO `companys` VALUES ('5', 'คุณสุชิน', null, null);
+INSERT INTO `companys` VALUES ('6', 'เจริญการช่าง', null, null);
+INSERT INTO `companys` VALUES ('7', 'ชัยศิลโทรทัศน์', null, null);
+INSERT INTO `companys` VALUES ('8', 'ชัยอมรอลูมินั้มแอนกลาส', null, null);
+INSERT INTO `companys` VALUES ('9', 'โชควัฒนากระจกอลูมิเนียม', null, null);
+
+-- ----------------------------
 -- Table structure for customers
 -- ----------------------------
 DROP TABLE IF EXISTS `customers`;
@@ -1141,11 +1585,13 @@ CREATE TABLE `customers` (
   `pic` varchar(255) DEFAULT NULL,
   `createdate` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of customers
 -- ----------------------------
+INSERT INTO `customers` VALUES ('1', 'ไอน้ำ เรืองโพน', '43 หมู่3 บ้านห้วยลึก', '4224', '471', '31', '38210', '0913638928', '2', 'php,access,delphi,css,c#', 'inamjung@hotmail.com', '1458696044229.jpg', null);
+INSERT INTO `customers` VALUES ('2', 'ทุเรียน อร่อย', '300 หมู่ 11', '4134', '462', '31', '38000', '0913638921', '1', 'php,delphi', 'test01@hotmail.com', '3.jpg', null);
 
 -- ----------------------------
 -- Table structure for departments
@@ -1155,13 +1601,84 @@ CREATE TABLE `departments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL COMMENT 'แผนก',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of departments
 -- ----------------------------
 INSERT INTO `departments` VALUES ('1', 'บริหารทั่วไป');
 INSERT INTO `departments` VALUES ('2', 'งานคอมพิวเตอร์');
+INSERT INTO `departments` VALUES ('3', 'ทันตกรรม');
+INSERT INTO `departments` VALUES ('4', 'เภสัชกรรม');
+INSERT INTO `departments` VALUES ('5', 'ผู้ป่วยหนัก');
+INSERT INTO `departments` VALUES ('6', 'เภสัชกรรม1');
+INSERT INTO `departments` VALUES ('7', 'บริหาร1');
+
+-- ----------------------------
+-- Table structure for indetail
+-- ----------------------------
+DROP TABLE IF EXISTS `indetail`;
+CREATE TABLE `indetail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `inventory_id` varchar(255) NOT NULL COMMENT 'เลขที่ใบรับเข้า',
+  `product_id` int(11) NOT NULL COMMENT 'วัสดุ',
+  `price` double NOT NULL DEFAULT '0' COMMENT 'ราคา',
+  `qty` int(11) NOT NULL DEFAULT '0' COMMENT 'จำนวนรับ',
+  `exp` date DEFAULT NULL COMMENT 'EXP',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of indetail
+-- ----------------------------
+INSERT INTO `indetail` VALUES ('1', '20170625-1', '1', '200', '10', '2017-06-30');
+INSERT INTO `indetail` VALUES ('2', '20170625-1', '2', '90', '12', '2017-06-30');
+INSERT INTO `indetail` VALUES ('3', '20170625-2', '1', '245', '10', '2017-07-31');
+INSERT INTO `indetail` VALUES ('4', '20170625-3', '3', '45', '5', '2017-06-30');
+INSERT INTO `indetail` VALUES ('5', '20170625-4', '1', '230', '6', '2017-06-25');
+INSERT INTO `indetail` VALUES ('6', '20170625-5', '1', '200', '8', '2017-06-30');
+INSERT INTO `indetail` VALUES ('7', '20170625-6', '2', '150', '5', '2017-06-30');
+INSERT INTO `indetail` VALUES ('8', '20170625-7', '1', '5', '5', '2017-06-30');
+
+-- ----------------------------
+-- Table structure for inmain
+-- ----------------------------
+DROP TABLE IF EXISTS `inmain`;
+CREATE TABLE `inmain` (
+  `id` varchar(255) NOT NULL COMMENT 'เลขที่ใบรับเข้า',
+  `company_id` int(11) DEFAULT NULL COMMENT 'บริษัท',
+  `bill_no` int(11) DEFAULT NULL COMMENT 'เลขที่ใบส่งของ',
+  `inventory` enum('i','o') DEFAULT NULL,
+  `date` date DEFAULT NULL COMMENT 'วันรับของ',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of inmain
+-- ----------------------------
+INSERT INTO `inmain` VALUES ('20170625-1', '2', '5555', 'i', '2017-06-22');
+INSERT INTO `inmain` VALUES ('20170625-2', '4', '5566', 'i', '2017-06-14');
+INSERT INTO `inmain` VALUES ('20170625-3', '1', '89', 'i', '2017-06-15');
+INSERT INTO `inmain` VALUES ('20170625-4', '4', '88', 'i', '2017-06-14');
+INSERT INTO `inmain` VALUES ('20170625-5', '2', '888', 'i', '2017-06-15');
+INSERT INTO `inmain` VALUES ('20170625-6', '4', '81', 'i', '2017-06-25');
+INSERT INTO `inmain` VALUES ('20170625-7', '2', '882', 'i', '2017-06-25');
+
+-- ----------------------------
+-- Table structure for line_bot
+-- ----------------------------
+DROP TABLE IF EXISTS `line_bot`;
+CREATE TABLE `line_bot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` mediumtext,
+  `last_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of line_bot
+-- ----------------------------
+INSERT INTO `line_bot` VALUES ('1', 'แจ้งเตือน', '7');
 
 -- ----------------------------
 -- Table structure for migration
@@ -1178,6 +1695,75 @@ CREATE TABLE `migration` (
 -- ----------------------------
 INSERT INTO `migration` VALUES ('m000000_000000_base', '1498280033');
 INSERT INTO `migration` VALUES ('m130524_201442_init', '1498280067');
+INSERT INTO `migration` VALUES ('m140209_132017_init', '1498367685');
+
+-- ----------------------------
+-- Table structure for products
+-- ----------------------------
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL COMMENT 'ชื่อวัสดุ',
+  `detail` text NOT NULL COMMENT 'คุณสมบัตเฉพาะ',
+  `qty` int(11) NOT NULL COMMENT 'จำนวนคงเหลือ',
+  `price` double NOT NULL COMMENT 'ราคา',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of products
+-- ----------------------------
+INSERT INTO `products` VALUES ('1', 'จอบขุดดิน', 'เหล้กกล้า', '39', '250');
+INSERT INTO `products` VALUES ('2', 'เสียมดายหญ้า', 'ด้ามไม้', '17', '120');
+INSERT INTO `products` VALUES ('3', 'ตะกล้าใสผัก', 'ขนากกลาง', '5', '85');
+
+-- ----------------------------
+-- Table structure for profile
+-- ----------------------------
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE `profile` (
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `public_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gravatar_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `gravatar_id` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `location` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bio` text COLLATE utf8_unicode_ci,
+  `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of profile
+-- ----------------------------
+INSERT INTO `profile` VALUES ('1', null, null, null, null, null, null, null, null);
+INSERT INTO `profile` VALUES ('2', null, null, null, null, null, null, null, null);
+INSERT INTO `profile` VALUES ('3', null, null, null, null, null, null, null, null);
+
+-- ----------------------------
+-- Table structure for social_account
+-- ----------------------------
+DROP TABLE IF EXISTS `social_account`;
+CREATE TABLE `social_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `provider` varchar(255) NOT NULL,
+  `client_id` varchar(255) NOT NULL,
+  `data` text,
+  `code` varchar(32) DEFAULT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account_unique` (`provider`,`client_id`) USING BTREE,
+  UNIQUE KEY `account_unique_code` (`code`) USING BTREE,
+  KEY `fk_user_account` (`user_id`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=tis620;
+
+-- ----------------------------
+-- Records of social_account
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tmb
@@ -10060,10 +10646,61 @@ INSERT INTO `tmb` VALUES ('8859', '961302', 'บูกิต', '997', '76', '6')
 INSERT INTO `tmb` VALUES ('8860', '961303', 'มะรือโบออก', '997', '76', '6');
 
 -- ----------------------------
+-- Table structure for token
+-- ----------------------------
+DROP TABLE IF EXISTS `token`;
+CREATE TABLE `token` (
+  `user_id` int(11) NOT NULL,
+  `code` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `type` smallint(6) NOT NULL,
+  UNIQUE KEY `token_unique` (`user_id`,`code`,`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of token
+-- ----------------------------
+INSERT INTO `token` VALUES ('1', '9m0a-B-fcMgnUo82UjDADsbk5pDDvl9F', '1498372656', '0');
+INSERT INTO `token` VALUES ('2', 'HqMhdZ9YWE6FFaVWRrvE_xc3ZVMF2Az8', '1498374701', '0');
+INSERT INTO `token` VALUES ('3', 'WvYh4m1X-Huy3tK_vUMe6E0_mkfDJvay', '1498374948', '0');
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `confirmed_at` int(11) DEFAULT NULL,
+  `unconfirmed_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `blocked_at` int(11) DEFAULT NULL,
+  `registration_ip` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `flags` int(11) NOT NULL DEFAULT '0',
+  `last_login_at` int(11) DEFAULT NULL,
+  `status` varchar(45) COLLATE utf8_unicode_ci DEFAULT '10',
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_unique_username` (`username`),
+  UNIQUE KEY `user_unique_email` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', 'admin', 'admin@local.com', '$2y$12$cj14qLW4X6WP3T2kPGmQVuQbl8QRClEHapwUeqZf6jaqgAd1zpV8m', 'RTr-Tzv-XGvrARUYXIF461c9am47VWG0', null, null, null, '::1', '1498372656', '1498372656', '0', '1498375609', '10', null);
+INSERT INTO `user` VALUES ('2', 'manager', 'manager@local.com', '$2y$12$f6RX3qs0HA23M4l9mrUgveJcwgh/S.ep9JKJEgPGYczf8gCntj7Fm', '779BXufuSe6Dbaz1g8TUAg1b_MNvJs9p', null, null, null, '::1', '1498374700', '1498374700', '0', '1498377649', '10', null);
+INSERT INTO `user` VALUES ('3', 'user', 'user@local.com', '$2y$12$PFGdszR5gINc8HoaIuljXOl3lChT/EnX4eb9lAsajWvUtMQm2bnrW', 'ccSz_DnUJ7dLcMC1K4QnVcOcFF1zMPqe', null, null, null, '::1', '1498374947', '1498374947', '0', '1498377524', '10', null);
+
+-- ----------------------------
+-- Table structure for user1
+-- ----------------------------
+DROP TABLE IF EXISTS `user1`;
+CREATE TABLE `user1` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
@@ -10080,6 +10717,6 @@ CREATE TABLE `user` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
--- Records of user
+-- Records of user1
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', '9WG8jlv577Sm58ycwMiuIiNc38BaCfLI', '$2y$13$cM2YxhsDc6gVwMr34AE35OD/QqNjOpArlAHy4D7NJl.m5yfxMLZFW', null, 'admin@local.com', '10', '1498286088', '1498286088');
+INSERT INTO `user1` VALUES ('1', 'admin', '9WG8jlv577Sm58ycwMiuIiNc38BaCfLI', '$2y$13$cM2YxhsDc6gVwMr34AE35OD/QqNjOpArlAHy4D7NJl.m5yfxMLZFW', null, 'admin@local.com', '10', '1498286088', '1498286088');
